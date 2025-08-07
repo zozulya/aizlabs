@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-source "https://rubygems.org"
+source "https://github.com/zozulya/aizlabs/"
 
 # gem "rails"
 # gem "jekyll"
