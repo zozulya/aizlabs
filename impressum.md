@@ -6,7 +6,7 @@ permalink: /impressum/
 
 **Name:** Zozulya labs  
 **Address:** Dorfstrasse 38, Meilen, Switzerland  
-**Email:** o.zozulya.ch@gmail.com  
+**Email:** info@aizlabs.ch  
 
 **Purpose of Website:**  
 This website provides information about Zozulya labs and its activities.
