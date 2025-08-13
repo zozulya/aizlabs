@@ -78,3 +78,92 @@ a:visited {
   color: #4DA3FF;
   text-decoration: underline;
 }
+
+.more-info-section {
+    /* Start hidden and ready for transition */
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-top: 30px;
+
+    /* Visual styles */
+    background: rgba(30, 36, 50, 0.9);
+    border-radius: 12px;
+    max-width: 650px;
+    border: 1px solid #222;
+
+    /* Align text to the left instead of inheriting center alignment */
+    text-align: left;
+    /* Smooth transition for revealing the content */
+    transition: max-height 0.5s ease-in-out, opacity 0.5s ease-in-out, padding-top 0.5s ease-in-out, padding-bottom 0.5s ease-in-out;
+}
+
+.more-info-section.is-visible {
+    max-height: 500px; /* A value larger than the content's expected height */
+    opacity: 1;
+    padding: 25px;
+}
+
+.more-info-section h3 {
+    margin-bottom: 15px;
+    color: #ff00ff;
+}
+
+.more-info-section p {
+    line-height: 1.6;
+    opacity: 0.9;
+    margin-bottom: 1.2em; /* Adds space between paragraphs */
+}
+
+.more-info-section p:last-of-type {
+    margin-bottom: 0; /* Removes space after the last paragraph */
+}
+
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 100; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content {
+    background-color: #121212;
+    margin: 15% auto;
+    padding: 30px;
+    border: 1px solid #333;
+    border-radius: 12px;
+    width: 80%;
+    max-width: 500px;
+    position: relative;
+    text-align: center;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.4);
+}
+
+.modal-content h2 {
+    color: #ff00ff;
+    margin-bottom: 20px;
+}
+
+.modal-content p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin-bottom: 1em;
+}
+
+.close-btn {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
