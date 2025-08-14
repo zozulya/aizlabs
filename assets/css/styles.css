@@ -14,18 +14,21 @@ body {
 }
 
 .hero {
-    height: 100vh;
+    min-height: 100vh; /* Allow the container to grow beyond the screen height */
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     position: relative;
-    overflow: hidden;
+    /* Add padding to push content down, creating a safe area for the nav bar */
+    padding-top: 80px; /* Adjust this value based on your nav's height */
+    box-sizing: border-box; /* Ensures padding is included within the 100vh height */
 }
 
 .nav {
     position: absolute;
     top: 20px;
+    left: 0; /* Ensures the nav spans the full width consistently */
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -73,6 +76,17 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* Responsive adjustments for smaller screens */
+@media (max-width: 600px) {
+    .content h2 {
+        font-size: 2.2em; /* Reduce heading size */
+    }
+
+    .content p {
+        font-size: 1em; /* Adjust paragraph size */
+    }
+}
+
 a:link,
 a:visited {
   color: #4DA3FF;
@@ -101,7 +115,7 @@ a:visited {
 }
 
 .more-info-section.is-visible {
-    max-height: 500px; /* A value larger than the content's expected height */
+    max-height: 2000px; /* A large value to accommodate wrapped text on any screen */
     opacity: 1;
     padding: 25px;
 }
