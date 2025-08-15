@@ -19,4 +19,4 @@ This website does not use analytics or third-party tracking services.
 You have the right to request information about your personal data, request correction, or deletion.
 
 **Contact:**  
-For privacy-related inquiries, contact us at o.zozulya.ch@gmail.com.
+For privacy-related inquiries, contact us at info@aizlabs.com.
