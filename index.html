@@ -57,28 +57,46 @@ layout: none
 </body>
 <script>
 window.addEventListener("load", function(){
-  if (!window.cookieconsent) { return; }
-  window.cookieconsent.initialise({
-    palette: {
-      popup: { background: "#000" },
-      button: { background: "#f1d600" }
-    },
-    type: "opt-in",
-    content: {
-      message: "This site uses cookies to analyze traffic.",
-      dismiss: "Accept",
-      allow: "Allow cookies",
-      deny: "Decline",
-      link: "Learn more",
-      href: "{{ '/privacy-policy/' | relative_url }}"
-    },
-    onInitialise: function(status) {
-      if (status === "allow") { loadAnalytics(); }
-    },
-    onStatusChange: function(status) {
-      if (status === "allow") { loadAnalytics(); }
-    }
-  });
+  const consentRequiredCountries = [
+    // EU + EEA
+    "AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE","IS","LI","NO",
+    // UK, Switzerland
+    "GB","CH",
+    // Other major jurisdictions with cookie consent requirements
+    "CA","BR","AR","CL","CO","MX","PE","UY","ZA","AU","NZ","JP","KR","SG","TH","MY","PH","ID","VN","IN","IL","AE","SA","EG","NG","KE","GH","MA","TN"
+  ];
+
+  function showConsentBanner(){
+    if (!window.cookieconsent) { return; }
+    window.cookieconsent.initialise({
+      palette: { popup: { background: "#000" }, button: { background: "#f1d600" } },
+      type: "opt-in",
+      content: {
+        message: "This site uses cookies to analyze traffic.",
+        dismiss: "Accept",
+        allow: "Allow cookies",
+        deny: "Decline",
+        link: "Learn more",
+        href: "{{ '/privacy-policy/' | relative_url }}"
+      },
+      onInitialise: function(status) { if (status === "allow") { loadAnalytics(); } },
+      onStatusChange: function(status) { if (status === "allow") { loadAnalytics(); } }
+    });
+  }
+
+  function handleGeoError(){ showConsentBanner(); }
+
+  fetch("https://ipapi.co/json/")
+    .then(function(res){ return res.ok ? res.json() : Promise.reject(); })
+    .then(function(data){
+      var code = (data && data.country_code) ? String(data.country_code).toUpperCase() : "";
+      if (consentRequiredCountries.indexOf(code) !== -1) {
+        showConsentBanner();
+      } else {
+        loadAnalytics();
+      }
+    })
+    .catch(handleGeoError);
 });
 
 function loadAnalytics(){
