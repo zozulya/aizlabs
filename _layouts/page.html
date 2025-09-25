@@ -2,15 +2,8 @@
 <html lang="en">
 
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-DQ0BJBBLMS"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
-    gtag('config', 'G-DQ0BJBBLMS');
-  </script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>{{ page.title }} | {{ site.title }}</title>
@@ -99,6 +92,46 @@
   <footer>
     <p>&copy; {{ site.time | date: "%Y" }} {{ site.title }}. All rights reserved.</p>
   </footer>
+  <script>
+  window.addEventListener("load", function(){
+    if (!window.cookieconsent) { return; }
+    window.cookieconsent.initialise({
+      palette: {
+        popup: { background: "#000" },
+        button: { background: "#f1d600" }
+      },
+      type: "opt-in",
+      content: {
+        message: "This site uses cookies to analyze traffic.",
+        dismiss: "Accept",
+        allow: "Allow cookies",
+        deny: "Decline",
+        link: "Learn more",
+        href: "{{ '/privacy-policy/' | relative_url }}"
+      },
+      onInitialise: function(status) {
+        if (status === "allow") { loadAnalytics(); }
+      },
+      onStatusChange: function(status) {
+        if (status === "allow") { loadAnalytics(); }
+      }
+    });
+  });
+
+  function loadAnalytics(){
+    if (window.__gaLoaded) { return; }
+    window.__gaLoaded = true;
+    var gtagScript = document.createElement('script');
+    gtagScript.async = true;
+    gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=G-DQ0BJBBLMS";
+    document.head.appendChild(gtagScript);
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    window.gtag = gtag;
+    gtag('js', new Date());
+    gtag('config', 'G-DQ0BJBBLMS');
+  }
+  </script>
 </body>
 
 </html>

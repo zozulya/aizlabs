@@ -9,15 +9,8 @@ layout: none
     <title>Stealth AI Startup</title>
     <link rel="stylesheet" href="{{ '/assets/css/styles.css' | relative_url }}">
     <script defer src="{{ '/assets/js/script.js' | relative_url }}"></script>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DQ0BJBBLMS"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-DQ0BJBBLMS');
-    </script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js"></script>
 </head>
 <body>
     <div class="hero">
@@ -62,5 +55,45 @@ layout: none
       </div>
     </div>
 </body>
+<script>
+window.addEventListener("load", function(){
+  if (!window.cookieconsent) { return; }
+  window.cookieconsent.initialise({
+    palette: {
+      popup: { background: "#000" },
+      button: { background: "#f1d600" }
+    },
+    type: "opt-in",
+    content: {
+      message: "This site uses cookies to analyze traffic.",
+      dismiss: "Accept",
+      allow: "Allow cookies",
+      deny: "Decline",
+      link: "Learn more",
+      href: "{{ '/privacy-policy/' | relative_url }}"
+    },
+    onInitialise: function(status) {
+      if (status === "allow") { loadAnalytics(); }
+    },
+    onStatusChange: function(status) {
+      if (status === "allow") { loadAnalytics(); }
+    }
+  });
+});
+
+function loadAnalytics(){
+  if (window.__gaLoaded) { return; }
+  window.__gaLoaded = true;
+  var gtagScript = document.createElement('script');
+  gtagScript.async = true;
+  gtagScript.src = "https://www.googletagmanager.com/gtag/js?id=G-DQ0BJBBLMS";
+  document.head.appendChild(gtagScript);
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  window.gtag = gtag;
+  gtag('js', new Date());
+  gtag('config', 'G-DQ0BJBBLMS');
+}
+</script>
 </html>
 {% include footer.html %}
