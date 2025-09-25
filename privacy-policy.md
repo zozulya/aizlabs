@@ -13,7 +13,7 @@ We do not actively collect personal data except for information you voluntarily 
 Any data you provide will only be used to respond to your inquiries and will not be shared with third parties.
 
 **Third-Party Services:**  
-This website does not use analytics or third-party tracking services.
+We use Google Analytics to understand how visitors use our website. Google Analytics uses cookies and similar technologies to collect information such as pages visited and approximate location (with IP anonymization enabled). This data is processed in accordance with Google's Privacy Policy. You can opt out by using the Google Analytics Opt-out Browser Add-on.
 
 **User Rights:**  
 You have the right to request information about your personal data, request correction, or deletion.
