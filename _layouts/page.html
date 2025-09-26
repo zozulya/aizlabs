@@ -2,8 +2,10 @@
 <html lang="en">
 
 <head>
-  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
-  <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600&display=swap"></noscript>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <title>{{ page.title }} | {{ site.title }}</title>
@@ -104,9 +106,23 @@
       "CA","BR","AR","CL","CO","MX","PE","UY","ZA","AU","NZ","JP","KR","SG","TH","MY","PH","ID","VN","IN","IL","AE","SA","EG","NG","KE","GH","MA","TN"
     ];
 
+    function loadCookieConsentAssets(callback){
+      if (window.__ccLoaded) { callback(); return; }
+      var ccCss = document.createElement('link');
+      ccCss.rel = 'stylesheet';
+      ccCss.href = 'https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css';
+      var ccScript = document.createElement('script');
+      ccScript.defer = true;
+      ccScript.src = 'https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js';
+      ccScript.onload = function(){ window.__ccLoaded = true; callback(); };
+      document.head.appendChild(ccCss);
+      document.head.appendChild(ccScript);
+    }
+
     function showConsentBanner() {
-      if (!window.cookieconsent) { return; }
-      window.cookieconsent.initialise({
+      loadCookieConsentAssets(function(){
+        if (!window.cookieconsent) { return; }
+        window.cookieconsent.initialise({
         palette: { popup: { background: "#000" }, button: { background: "#f1d600" } },
         type: "opt-in",
         content: {
@@ -119,6 +135,7 @@
         },
         onInitialise: function(status) { if (status === "allow") { loadAnalytics(); } },
         onStatusChange: function(status) { if (status === "allow") { loadAnalytics(); } }
+        });
       });
     }
 
